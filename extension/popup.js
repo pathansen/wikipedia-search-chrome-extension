@@ -1,8 +1,3 @@
-// Patrick Hansen
-// 23 December 2017
-// Wikipedia Searching Chrome Extension
-
-
 /**
  * @description Take user input and search using Wikipedia API
  */
