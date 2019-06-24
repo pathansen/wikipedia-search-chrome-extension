@@ -1,0 +1,60 @@
+body {
+    width: 500px;
+    max-height: 500px;
+}
+
+.top {
+    padding: 1%;
+    margin: 1%;  
+}
+
+.input-group {
+    padding: 1%;
+    width: 100%;
+}
+
+.result {
+    padding: 1%;
+    margin: 1%;
+    /* background: rgb(127, 209, 231); */
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px; 
+}
+
+.result-title {
+    font-weight: bold;
+}
+
+.result-link {
+    color: black;
+}
+
+.result-link:hover {
+    color: black;
+}
+
+/* .form-control {
+    
+} */
+
+#user-input:active {
+    border-top: rgb(0, 0, 0);
+    border-right: rgb(0, 0, 0);
+    border-right: rgb(0, 0, 0);
+    border-bottom: rgb(0, 0, 0);
+    border-width: 1px;
+}
+
+#user-input:focus {
+    box-shadow: 0 0.5px 0.5px rgb(0, 0, 0) inset, 0 0 10px rgb(0, 0, 0);
+    border: none;
+    outline: none;
+}
+
+#my-button {
+    background-color: black;
+    border: none;
+    outline: none;
+}

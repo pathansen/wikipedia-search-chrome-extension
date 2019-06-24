@@ -1,0 +1,34 @@
+{
+  "manifest_version": 2,
+  "name": "Wikipedia Search Chrome Extension",
+  "version": "0.0.1",
+  "author": "Patrick Hansen",
+  "description": "Searching tool...",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "scripts/content.js",
+        "scripts/jquery.min.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": "icons/icon256.png",
+    "default_popup": "extension/popup.html",
+    "default_title": "This is where the popup will be"
+  },
+  "content_security_policy": "script-src 'self' https://en.wikipedia.org/w/api.php; object-src 'self'"
+}
