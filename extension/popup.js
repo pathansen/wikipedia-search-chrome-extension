@@ -65,7 +65,6 @@ button.addEventListener('click', buttonClick);
 const input = document.getElementById('user-input');
 input.addEventListener('keyup', (event) => {
   if (event.keyCode === 13) {
-    console.log('** KEY PRESSED **');
     event.preventDefault();
     button.click();
   }
