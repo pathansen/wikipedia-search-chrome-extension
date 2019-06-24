@@ -2,110 +2,59 @@
 // 23 December 2017
 // Wikipedia Searching Chrome Extension
 
+
 /**
- * @description Descripion here...
- * @returns {*} Return value here...
+ * @description Take user input and search using Wikipedia API
  */
-const buttonClick = () => {
-  getUserInput().then(function(result) {
-    return resetListing(result);
-  }).then(function(result) {
-    return getData(result);
-  }).then(function() {
-    // console.log('finished');
-  })
+const buttonClick = async () => {
+  // Get user input
+  const userInput = await getUserInput();
+
+  // Make GET request to Wikipedia API
+  const response = await fetch('https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=' + userInput);
+  const data = await response.json();
+
+  // Display results
+  actOnData(data);
 }
 
 
 /**
- * @description Descripion here...
- * @returns {*} Return value here...
+ * @description Get user input from input element
+ * @returns {String} User input seperated by underscores
  */
 const getUserInput = () => {
-  return new Promise(function(resolve) {
-    const userInput = document.getElementById("user-input").value;
-    const query = userInput.replace(/\s+/g, '_');
-    resolve(query);
-  });
+  const userInput = document.getElementById('user-input').value;
+  return userInput.replace(/\s+/g, '_');
 }
 
 
 /**
- * @description Descripion here...
- * @param {*} query
- */
-const resetListing = (query) => {
-  return new Promise(function(resolve) {
-    const divs = document.getElementsByTagName("div");
-    const listing = divs[2].childNodes;
-    console.log(listing);
-    const count = listing.length;
-    console.log(count);
-
-    const parent = document.getElementById('result-listing');
-    console.log(parent);
-    for (l of listing) {
-        console.log(l);
-        parent.removeChild(l);
-    }
-    // for (let i = 0; i < count; i++) {
-    //     let l = listing[i];
-    //     console.log(l);
-    //     let child = document.getElementById(l.id);
-    //     let parent = document.getElementById('result-listing');
-    //     parent.removeChild(child);
-    //     console.log(i);
-    // }
-    resolve(query);
-  });
-}
-
-
-/**
- * @description Descripion here...
- * @param {*} query
- */
-const getData = (query) => {
-  return new Promise(function(resolve) {
-    const search_url = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=';
-    const url = search_url + query;
-
-    $.ajax({
-      url: url,
-      dataType: "jsonp",
-      success: actOnData
-    });
-    resolve(true);
-  })
-}
-
-
-/**
- * @description Description here...
- * @param {*} result The result returned...
+ * @description Creates result listing from user search
+ * @param {JSON} result JSON result from Wikipedia API GET request
  */
 const actOnData = (result) => {
   for (i in result[1]) {
     const resultDiv = document.createElement('div');
-    resultDiv.id  = result[1][i];
-    resultDiv.id  = resultDiv.id.replace(/\s+/g, '-');
-    resultDiv.id  = resultDiv.id.replace(/[(]/g, '_');
-    resultDiv.id  = resultDiv.id.replace(/[)]/g, '_');
-    resultDiv.className = "result";
+    resultDiv.id = result[1][i];
+    resultDiv.id = resultDiv.id.replace(/\s+/g, '-');
+    resultDiv.id = resultDiv.id.replace(/[(]/g, '_');
+    resultDiv.id = resultDiv.id.replace(/[)]/g, '_');
+    resultDiv.className = 'result';
 
     const title = document.createElement('h5');
-    title.className = "result-title";
+    title.className = 'result-title';
     title.innerHTML = result[1][i];
 
     const info = document.createElement('h6');
-    info.className = "result-info";
+    info.className = 'result-info';
     info.innerHTML = result[2][i];
 
     const link = document.createElement('a');
-    link.className = "result-link";
+    link.className = 'result-link';
     link.href = result[3][i];
-    link.target = "_blank";
-    link.innerHTML = "<i class=\"fa fa-info-circle\"></i>";
+    link.target = '_blank';
+    link.innerHTML = '<i class=\'fa fa-info-circle\'></i>';
 
     resultDiv.appendChild(title);
     resultDiv.appendChild(info);
@@ -115,4 +64,14 @@ const actOnData = (result) => {
   }
 }
 
-document.getElementById("my-button").addEventListener("click", buttonClick);
+const button = document.getElementById('my-button');
+button.addEventListener('click', buttonClick);
+
+const input = document.getElementById('user-input');
+input.addEventListener('keyup', (event) => {
+  if (event.keyCode === 13) {
+    console.log('** KEY PRESSED **');
+    event.preventDefault();
+    button.click();
+  }
+});
