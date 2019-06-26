@@ -49,7 +49,8 @@ const actOnData = (result) => {
     link.className = 'result-link';
     link.href = result[3][i];
     link.target = '_blank';
-    link.innerHTML = '<i class=\'fa fa-info-circle\'></i>';
+    link.rel = 'noreferrer noopener';
+    link.innerHTML = '<i class=\'fa fa-info-circle\'></i> <b>Open in new tab</b>';
 
     resultDiv.appendChild(title);
     resultDiv.appendChild(info);
