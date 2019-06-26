@@ -11,6 +11,5 @@ This extension currently needs to be manually installed from within the Chrome b
 Then click `Load unpacked` and select the extension directory to load the unpacked extension into the browswer.
 
 ### Additional Features to Add:
-
-* [] Pack extension and publish to Chrome Web Store (as private or unlisted)
-* [] Update user interface
+* [ ] Pack extension and publish to Chrome Web Store (as private or unlisted)
+* [ ] Update user interface
